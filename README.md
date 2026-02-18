@@ -1,57 +1,70 @@
 # AppChat — Modern Flutter Chat Application
 
-A high-performance, clean-coded chat application built with Flutter using the **MVVM (Model-View-ViewModel)** design pattern. This app provides a seamless messaging experience with channels and direct messaging (DMs).
+A high-performance, clean-coded chat application built with Flutter using the **MVVM (Model-View-ViewModel)** design pattern. 
 
-## 🚀 Architecture: MVVM
+## 🛠️ Project Setup Instructions
 
-The project follows a strict separation of concerns to ensure maintainability and testability:
+Follow these steps to get the project running on your local machine:
 
--   **Models**: Pure data classes (Channel, Message, User) that define the structure of our data.
--   **Views**: UI screens and widgets. They are "dumb" and only responsible for rendering data provided by ViewModels.
--   **ViewModels**: Act as a bridge between the View and Repository. They handle business logic, state management, and user interaction.
--   **Repositories**: Centralized data layer that abstracts data sources (currently using in-memory arrays to simulate a database/API).
+1.  **Clone the Repository**:
+    ```bash
+    git clone <repository-url>
+    cd immverse
+    ```
 
-## ✨ Key Features
+2.  **Install Dependencies**:
+    Ensure you have Flutter installed, then run:
+    ```bash
+    flutter pub get
+    ```
 
--   **Authentication**: Simple login flow with personalized user identities.
--   **Channels**: Public chat rooms with unread message indicators and last message previews.
--   **Direct Messages (DMs)**: Private 1-on-1 conversations with online/offline status tracking.
--   **Real-time Simulation**: Interactive message sending with automatic UI updates.
--   **Modern UI**: 
-    -   Initial-based avatars for a clean, consistent look.
-    -   Gradient-themed login and splash screens.
-    -   Responsive message bubbles with timestamp formatting.
-    -   Bottom navigation for easy switching between Channels and DMs.
+3.  **Run the Application**:
+    Connect an emulator or physical device and run:
+    ```bash
+    flutter run
+    ```
 
-## 🛠️ Tech Stack
+4.  **Analyze Code** (Optional):
+    To verify code quality and lack of errors:
+    ```bash
+    flutter analyze
+    ```
 
--   **Flutter**: Cross-platform UI toolkit.
--   **Provider**: State management and dependency injection.
--   **MVVM Pattern**: For scalable and maintainable codebase.
+## 🧠 State Management: Provider + MVVM
+
+The application uses the **Provider** package for state management and dependency injection. This is paired with the **MVVM architecture** to ensure a clean separation between the UI and business logic:
+
+-   **ChangeNotifierViewModels**: All ViewModels (`AuthViewModel`, `ChannelViewModel`, `DmViewModel`) extend `ChangeNotifier`.
+-   **MultiProvider**: Located in `main.dart`, it provides all ViewModels to the entire widget tree.
+-   **Consumer & context.read**: Views reactively listen to changes using `Consumer` widgets or access methods directly via `context.read()`.
+-   **Repository Pattern**: A central `ChatRepository` abstracts the data source, allowing for easy transitions between in-memory storage, local databases, or remote APIs.
+
+## 🌟 Bonus Features Implemented
+
+Beyond the basic requirements, several premium features were added:
+
+1.  **Full MVVM Implementation**: Not just a flat structure; it uses a professional-grade architecture with distinct layers for Models, Views, ViewModels, and Repositories.
+2.  **Dynamic Search**: A real-time filtering system in the Direct Messages tab to find users instantly.
+3.  **Presence System**: Visual "Online/Offline" status indicators for all DM users.
+4.  **Smart Unread Counters**: Channels automatically display unread message counts that reset when the channel is opened.
+5.  **Premium Aesthetics**:
+    -   Custom glassmorphism-inspired UI elements.
+    -   Smooth gradient backgrounds on Login and Splash screens.
+    -   Initial-based avatars for a consistent, modern professional look.
+    -   Interactive message bubbles with smart border rounding based on sender.
+6.  **Navigation Flow**: A full specialized navigation flow including a Splash screen timer and authenticated session simulation.
 
 ## 📂 Project Structure
 
 ```text
 lib/
-├── models/         # Pure data models
-├── repositories/   # Data source & storage logic
-├── viewmodels/     # Business logic & state management
-├── views/          # UI screens & components
-└── main.dart       # App entry & Provider setup
+├── models/         # Pure data models (User, Message, Channel)
+├── repositories/   # Data layer & In-memory storage logic
+├── viewmodels/     # Business logic & ChangeNotifier state
+├── views/          # Pure UI screens & extracted sub-widgets
+└── main.dart       # App entry & Provider wiring
 ```
-
-## 🏁 Getting Started
-
-### Prerequisites
--   Flutter SDK installed
--   An Android/iOS emulator or physical device
-
-### Running the App
-1.  Clone or download the repository.
-2.  Open the project directory in your terminal.
-3.  Run `flutter pub get` to install dependencies.
-4.  Run `flutter run` to launch the application.
 
 ---
 
-*Built with ❤️ using Flutter & MVVM.*
+*Built with ❤️ using Flutter, Provider, and MVVM.*
